@@ -1,0 +1,14 @@
+[
+  {
+    "name" : "ipaddress",
+    "value": "172.25.192.138"
+  },
+  {
+    "name" : "username",
+    "value": "admin"
+  },
+  {
+    "name" : "password",
+    "value": "siesta3"
+  }
+]
