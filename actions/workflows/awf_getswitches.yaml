@@ -1,0 +1,15 @@
+version: 1.0
+
+description: A workflow to copy switch inventory from plexxi to servicenow.
+
+tasks:
+  getswitches:
+    action: hpecfm.get_switches
+    next:
+      - when: <% succeeded() %>
+        publish:
+          - switches: <% result().result %>
+        do: sendsnow
+
+  sendsnow:
+    action: hpecfm.awf_sendsnow switches=<% ctx().switches %>

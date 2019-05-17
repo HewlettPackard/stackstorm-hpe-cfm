@@ -1,0 +1,13 @@
+---
+ref: hpecfm
+name: hpecfm
+description: HPE Composable Fabric Integration Pack
+keywords:
+  - Composable Fabric
+  - Plexxi
+version: 0.1.0
+python_versions:
+  - "2"
+  - "3"
+author: Rick Kauffman
+email: rick.a.kauffman@hpe.com
