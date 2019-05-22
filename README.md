@@ -1,6 +1,6 @@
 # stackstorm-hpe-cfm
 Current status: Alpha
-Version : 0.1.0
+Version : 0.1.1
 
 
 HPE Composable Fabric stackstorm pack
@@ -33,5 +33,3 @@ Edit this file to have the appropriate data for the CFM you need to access.
 Save the file and issue: `st2 key load system-settings.json`
 
 Now these variable can be accessed in actions by using "{{ st2kv.system.ipaddress }}"
-
-
