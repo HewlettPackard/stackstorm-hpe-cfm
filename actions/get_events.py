@@ -24,7 +24,7 @@ from pyhpecfm.auth import CFMClient
 from pyhpecfm import system
 from st2common.runners.base_action import Action
 
-class alarmLookup(Action):
+class eventLookup(Action):
     def run(self, ipaddress=None, username=None, password=None):
 
         # Create client connection
@@ -38,14 +38,13 @@ class alarmLookup(Action):
             return error
 
         # Create a empty list for alarms
-        alarm_data = []
+        event_data = []
 
         # Set some counters
         c = 0
         x = 0
 
         # Loop through cfm_audits and process ALARMS
-
         for i in cfm_audits:
 
             try:
@@ -53,12 +52,22 @@ class alarmLookup(Action):
             except:
                 typex = '-'
 
-            if typex == 'ALARM':
+            if typex == 'EVENT':
 
                 try:
                     eventType = cfm_audits[c]['data']['event_type']
                 except:
                     eventType = '-'
+
+                try:
+                    objectName = cfm_audits[c]['data']['object_name']
+                except:
+                    objectName = '-'
+
+                try:
+                    objectType = cfm_audits[c]['data']['object_type']
+                except:
+                    objectType = '-'
 
                 try:
                     sev = cfm_audits[c]['severity']
@@ -75,9 +84,11 @@ class alarmLookup(Action):
                       'u_eventType': eventType,
                       'u_typex': typex,
                       'u_sev': sev,
-                      'u_desc': desc
+                      'u_desc': desc,
+                      'u_name' : objectName,
+                      'u_typeo' : objectType
                       }
-                alarm_data.append(out)
+                event_data.append(out)
 
             c = c + 1
-        return (True, alarm_data)
+        return (True, event_data)
