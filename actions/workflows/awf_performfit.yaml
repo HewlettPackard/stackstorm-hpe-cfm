@@ -10,4 +10,4 @@ tasks:
     printfrabrics:
       with: <% ctx().fabrics %>
       #action: hpecfm.perform_fit uuid='<% item() %>'
-      action: core.echo <% item() %>
+      action: core.echo message=<% item() %>
