@@ -7,6 +7,6 @@ input:
 
 tasks:
 
-    printswitches:
+    snowswitches:
       with: <% ctx().switches %>
       action: servicenow.create_record table="u_cfm_asset" payload='<% item() %>'
