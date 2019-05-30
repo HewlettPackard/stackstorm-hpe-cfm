@@ -1,0 +1,13 @@
+version: 1.0
+
+description: "Perform fit on cfm controller"
+
+input:
+  - fabrics
+
+tasks:
+
+    printswitches:
+      with: <% ctx().fabrics %>
+      #action: hpecfm.perform_fit uuid='<% item() %>'
+      action: core.echo <% item() %>

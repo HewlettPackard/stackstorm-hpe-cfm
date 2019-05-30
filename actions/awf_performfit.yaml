@@ -1,0 +1,10 @@
+---
+name: awf-performfit
+description: A workflow for performing a fit on the CFM controller.
+runner_type: orquesta
+entry_point: workflows/awf_performfit.yaml
+enabled: true
+parameters:
+  fabrics:
+    required: true
+    type: array

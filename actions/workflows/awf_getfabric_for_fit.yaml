@@ -1,0 +1,15 @@
+version: 1.0
+
+description: A workflow to get the fabric uuid and perform fit on CFM controller.
+
+tasks:
+  getswitches:
+    action: hpecfm.get_fabrics
+    next:
+      - when: <% succeeded() %>
+        publish:
+          - fabrics: <% result().result %>
+        do: fit
+
+  fit:
+    action: hpecfm.awf_performfit fabrics=<% ctx().fabrics %>

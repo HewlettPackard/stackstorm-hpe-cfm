@@ -1,0 +1,6 @@
+---
+name: awf-getfabric_for_fit
+description: A workflow for getting CFM fabrics from the controller.
+runner_type: orquesta
+entry_point: workflows/awf_getfabric_for_fit.yaml
+enabled: true
