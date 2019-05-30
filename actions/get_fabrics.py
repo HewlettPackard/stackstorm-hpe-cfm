@@ -84,4 +84,4 @@ class fabricLookup(Action):
             fabric_data.append(out)
 
             c = c + 1
-        return (True, switch_data)
+        return (True, fabric_data)
