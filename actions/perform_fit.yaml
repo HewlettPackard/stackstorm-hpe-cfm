@@ -38,4 +38,4 @@ parameters:
     type: "string"
     description: "The fabric description"
     required: true
-    position: 3
+    position: 5
