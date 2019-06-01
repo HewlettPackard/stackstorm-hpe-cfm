@@ -28,60 +28,17 @@ from pyhpecfm import fabric
 from st2common.runners.base_action import Action
 
 
-class fabricLookup(Action):
-    def run(self, ipaddress=None, username=None, password=None):
+class fabricfit(Action):
+    def run(self, ipaddress=None, username=None, password=None, fab_uuid=None, name=None, description=None):
 
         # Create client connection
         client = CFMClient(ipaddress, username, password)
 
         # Get switches from plexxi controller
         try:
-            cfm_fabrics = fabric.get_fabrics(client)
+            cfm_fit = fabric.perform_fit(client, fab_uuid, name, description)
         except:
-            error = "ERR-LOGIN - Failed to log into CFM controller"
+            error = "ERR-LOGIN - Failed to perfor fit on CFM controller"
             return error
 
-        fabric_data = []
-        c = 0
-        # Loop through cfm_fabrics and process IPZ
-        for i in cfm_fabrics:
-
-            try:
-                desc = cfm_fabrics[c]['description']
-                if desc == '':
-                    desc = 'HPE Composable Fabric'
-
-            except:
-                desc = 'HPE Composable Fabric'
-
-            try:
-                uuid = cfm_fabrics[c]['uuid']
-            except:
-                uuid = '-unknown'
-
-            try:
-                name = cfm_fabrics[c]['name']
-            except:
-                name = '-unknown'
-
-            try:
-                stable = cfm_fabrics[c]['is_stable']
-            except:
-                stable = '-unknown'
-
-            try:
-                fms = cfm_fabrics[c]['foreign_fabric_state']
-            except:
-                fms = '-unknown'
-
-            out ={
-                    'u_desc':desc,
-                    'u_uuid':uuid,
-                    'u_name':name,
-                    'u_stable':stable,
-                    'u_fms':fms
-                  }
-            fabric_data.append(out)
-
-            c = c + 1
-        return (True, switch_data)
+        return

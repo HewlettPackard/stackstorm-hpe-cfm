@@ -1,7 +1,7 @@
 ---
 name: get_fabrics
 pack: hpecfm
-description: Get an array of switches from the plexxi controller
+description: Get an array of fabrics from the plexxi controller
 runner_type: python-script
 entry_point: get_fabrics.py
 enabled: true

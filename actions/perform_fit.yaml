@@ -1,7 +1,7 @@
 ---
 name: perform_fit
 pack: hpecfm
-description: Get an array of switches from the plexxi controller
+description: Perform a FIT on the plexxi controller
 runner_type: python-script
 entry_point: perform_fit.py
 enabled: true
@@ -24,3 +24,18 @@ parameters:
     required: true
     position: 2
     default: "{{ st2kv.system.password }}"
+  fab_uuid:
+    type: "string"
+    description: "The UUID of the fabric"
+    required: true
+    position: 3
+  name:
+    type: "string"
+    description: "The fabric name"
+    required: true
+    position: 4
+  description:
+    type: "string"
+    description: "The fabric description"
+    required: true
+    position: 3
