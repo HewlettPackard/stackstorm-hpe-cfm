@@ -29,7 +29,7 @@ from st2common.runners.base_action import Action
 
 
 class fabricfit(Action):
-    def run(self, ipaddress=None, username=None, password=None, fab_uuid=None, name=None, description=None):
+    def run(self, ipaddress=None, username=None, password=None, fab_uuid, name, description):
 
         # Create client connection
         client = CFMClient(ipaddress, username, password)
