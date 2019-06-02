@@ -34,7 +34,7 @@ class fabricfit(Action):
         # Create client connection
         client = CFMClient(ipaddress, username, password)
 
-        # Get switches from plexxi controller
+        # Send fit request to the plexxi controller
         try:
             cfm_fit = fabric.perform_fit(client, fab_uuid, name, description)
         except:

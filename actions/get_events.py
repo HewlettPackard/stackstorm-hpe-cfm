@@ -44,7 +44,7 @@ class eventLookup(Action):
         c = 0
         x = 0
 
-        # Loop through cfm_audits and process ALARMS
+        # Loop through cfm_audits and process EVENTS
         for i in cfm_audits:
 
             try:

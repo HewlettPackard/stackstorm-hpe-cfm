@@ -35,8 +35,15 @@ class switchLookup(Action):
         client = CFMClient(ipaddress, username, password)
 
         # Get switches from plexxi controller
-        bunch_of_switches = fabric.get_switches(client)
+        try:
+            bunch_of_switches = fabric.get_switches(client)
+        except:
+            error = "ERR-LOGIN - Failed to log into CFM controller"
+            return error
+
+        # Setup a list for holding values
         switch_data = []
+        # Counter for tracking position in list
         c = 0
         # Process switch datat from plexxi API
         for i in bunch_of_switches:
@@ -45,6 +52,7 @@ class switchLookup(Action):
             mac_address = bunch_of_switches[c]['mac_address']
             name = bunch_of_switches[c]['name']
             sw_version = bunch_of_switches[c]['sw_version']
+            # Build dictionary for return
             out = {
                   'u_health': health,
                   'u_ip_address': ip_address,

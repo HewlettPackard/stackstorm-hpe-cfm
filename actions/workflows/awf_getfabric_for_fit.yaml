@@ -1,6 +1,6 @@
 version: 1.0
 
-description: A workflow to get the fabric uuid and perform fit on CFM controller.
+description: A workflow to get the fabric uuid, name and perform fit on CFM controller.
 
 tasks:
   getswitches:

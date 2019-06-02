@@ -28,13 +28,13 @@ from pyhpecfm import fabric
 from st2common.runners.base_action import Action
 
 
-class switchLookup(Action):
+class fabricIpLookup(Action):
     def run(self, ipaddress=None, username=None, password=None):
 
         # Create client connection
         client = CFMClient(ipaddress, username, password)
 
-        # Get switches from plexxi controller
+        # Get fabric_ips from plexxi controller
         try:
             cfm_fabrics = fabric.get_fabric_ip_networks(client)
         except:

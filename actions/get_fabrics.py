@@ -34,7 +34,7 @@ class fabricLookup(Action):
         # Create client connection
         client = CFMClient(ipaddress, username, password)
 
-        # Get switches from plexxi controller
+        # Get fabrics from plexxi controller
         try:
             cfm_fabrics = fabric.get_fabrics(client)
         except:
@@ -43,14 +43,14 @@ class fabricLookup(Action):
 
         fabric_data = []
         c = 0
-        # Loop through cfm_fabrics and process IPZ
+        # Loop through cfm_fabrics and process fabrics
+        # Use try because variable may be empty
         for i in cfm_fabrics:
 
             try:
                 desc = cfm_fabrics[c]['description']
                 if desc == '':
                     desc = 'HPE Composable Fabric'
-
             except:
                 desc = 'HPE Composable Fabric'
 
