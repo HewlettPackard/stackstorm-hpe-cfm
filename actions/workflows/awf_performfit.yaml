@@ -7,7 +7,7 @@ input:
 
 tasks:
 
-    printfrabrics:
+    sendfit:
       with: <% ctx().fabrics %>
       #action: hpecfm.perform_fit uuid='<% item() %>'
       action: hpecfm.perform_fit fab_uuid='<% item(u_uuid) %>' name='<% item(u_name) %>' description='st2 plexxi auto fit'

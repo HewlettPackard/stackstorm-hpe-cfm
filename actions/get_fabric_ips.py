@@ -19,7 +19,7 @@
 # __maintainer__ = "Rick Kauffman"
 # __email__ = "rick.a.kauffman@hpe.com"
 
-# A python script for getting a dictionary of switches
+# A python script for getting a dictionary of fabric ip addresses
 
 from pyhpecfm.auth import CFMClient
 from pyhpecfm import fabric
@@ -42,53 +42,20 @@ class fabricIpLookup(Action):
             return error
 
         fabric_data = []
-        c = 0
+
         # Loop through cfm_fabrics and process IPZ
         for i in cfm_fabrics:
-
-            try:
-                desc = cfm_fabrics[c]['description']
-                if desc == '':
-                    desc = 'HPE Composable Fabric'
-
-            except:
+            desc = i['description']
+            if desc == '':
                 desc = 'HPE Composable Fabric'
-
-            try:
-                fab_uuid = cfm_fabrics[c]['fabric_uuid']
-            except:
-                fab_uuid = '-unknown'
-
-            try:
-                name = cfm_fabrics[c]['name']
-            except:
-                name = '-unknown'
-
-            try:
-                mode = cfm_fabrics[c]['mode']
-            except:
-                mode = '-unknown'
-
-            try:
-                sub_address = cfm_fabrics[c]['subnet']['address']
-            except:
-                sub_address = '-unknown'
-
-            try:
-                sub_prefix = cfm_fabrics[c]['subnet']['address']
-            except:
-                sub_prefix = '-unknown'
-
-
             out ={
-                    'u_desc':desc,
-                    'u_fabu_uid':fab_uuid,
-                    'u_name':name,
-                    'u_mode':mode,
-                    'u_sub_address':sub_address,
-                    'u_sub_prefix':sub_prefix
+                    'u_desc':i['description'],
+                    'u_fabu_uid':i['fabric_uuid'],
+                    'u_name':i['name'],
+                    'u_mode':i['mode'],
+                    'u_sub_address':i['subnet']['address'],
+                    'u_sub_prefix':i['subnet']['prefix']
                   }
             fabric_data.append(out)
 
-            c = c + 1
         return (True, fabric_data)

@@ -19,8 +19,7 @@
 # __maintainer__ = "Rick Kauffman"
 # __email__ = "rick.a.kauffman@hpe.com"
 
-# A python script for getting a dictionary of switches
-
+# A python script for sending a 'fit' to the cfm controller
 from pyhpecfm.auth import CFMClient
 from pyhpecfm import fabric
 

@@ -19,7 +19,7 @@
 # __maintainer__ = "Rick Kauffman"
 # __email__ = "rick.a.kauffman@hpe.com"
 
-# A python script for getting a dictionary of switches
+# A python script for getting a dictionary of composable fabrics
 
 from pyhpecfm.auth import CFMClient
 from pyhpecfm import fabric
@@ -42,46 +42,20 @@ class fabricLookup(Action):
             return error
 
         fabric_data = []
-        c = 0
+
         # Loop through cfm_fabrics and process fabrics
         # Use try because variable may be empty
         for i in cfm_fabrics:
-
-            try:
-                desc = cfm_fabrics[c]['description']
-                if desc == '':
-                    desc = 'HPE Composable Fabric'
-            except:
+            desc = i['description']
+            if desc == '':
                 desc = 'HPE Composable Fabric'
-
-            try:
-                uuid = cfm_fabrics[c]['uuid']
-            except:
-                uuid = '-unknown'
-
-            try:
-                name = cfm_fabrics[c]['name']
-            except:
-                name = '-unknown'
-
-            try:
-                stable = cfm_fabrics[c]['is_stable']
-            except:
-                stable = '-unknown'
-
-            try:
-                fms = cfm_fabrics[c]['foreign_fabric_state']
-            except:
-                fms = '-unknown'
-
             out ={
-                    'u_desc':desc,
-                    'u_uuid':uuid,
-                    'u_name':name,
-                    'u_stable':stable,
-                    'u_fms':fms
+                    'u_desc':i['description'],
+                    'u_uuid':i['uuid'],
+                    'u_name':i['name'],
+                    'u_stable':i['is_stable'],
+                    'u_fms':i['foreign_fabric_state']
                   }
             fabric_data.append(out)
 
-            c = c + 1
         return (True, fabric_data)

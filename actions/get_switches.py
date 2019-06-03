@@ -43,24 +43,17 @@ class switchLookup(Action):
 
         # Setup a list for holding values
         switch_data = []
-        # Counter for tracking position in list
-        c = 0
+
         # Process switch datat from plexxi API
         for i in bunch_of_switches:
-            health = bunch_of_switches[c]['health']
-            ip_address = bunch_of_switches[c]['ip_address']
-            mac_address = bunch_of_switches[c]['mac_address']
-            name = bunch_of_switches[c]['name']
-            sw_version = bunch_of_switches[c]['sw_version']
             # Build dictionary for return
             out = {
-                  'u_health': health,
-                  'u_ip_address': ip_address,
-                  'u_mac_address': mac_address,
-                  'u_name': name,
-                  'u_sw_version': sw_version
+                  'u_health': i['health'],
+                  'u_ip_address': i['ip_address'],
+                  'u_mac_address': i['mac_address'],
+                  'u_name': i['name'],
+                  'u_sw_version': i['sw_version']
                   }
             switch_data.append(out)
 
-            c = c + 1
         return (True, switch_data)

@@ -40,44 +40,18 @@ class alarmLookup(Action):
         # Create a empty list for alarms
         alarm_data = []
 
-        # Set some counters
-        c = 0
-        x = 0
-
         # Loop through cfm_audits and process ALARMS
 
         for i in cfm_audits:
-
-            try:
-                typex = cfm_audits[c]['record_type']
-            except:
-                typex = '-'
-
+            typex = i['record_type']
             if typex == 'ALARM':
-
-                try:
-                    eventType = cfm_audits[c]['data']['event_type']
-                except:
-                    eventType = '-'
-
-                try:
-                    sev = cfm_audits[c]['severity']
-                except:
-                    sev = '-'
-
-                try:
-                    desc = cfm_audits[c]['description']
-                except:
-                    desc = '-'
-
                 # Build dictionary to add to list
                 out = {
-                      'u_eventType': eventType,
-                      'u_typex': typex,
-                      'u_sev': sev,
-                      'u_desc': desc
+                      'u_eventType': i['data']['event_type'],
+                      'u_typex': i['record_type'],
+                      'u_sev': i['severity'],
+                      'u_desc': i['description']
                       }
                 alarm_data.append(out)
-
-            c = c + 1
+                
         return (True, alarm_data)
