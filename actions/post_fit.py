@@ -37,7 +37,7 @@ class fabricfit(Action):
         try:
             cfm_fit = fabric.perform_fit(client, fab_uuid, name, description)
         except:
-            error = "ERR-LOGIN - Failed to perfor fit on CFM controller"
+            error = "ERR-LOGIN - Failed to perform fit on CFM controller"
             return error
 
         return

@@ -15,7 +15,6 @@
 # __author__ = "@netwookie"
 # __credits__ = ["Rick Kauffman"]
 # __license__ = "Apache2.0"
-# __version__ = "1.0.0"
 # __maintainer__ = "Rick Kauffman"
 # __email__ = "rick.a.kauffman@hpe.com"
 
@@ -38,23 +37,23 @@ class fabricIpLookup(Action):
         try:
             cfm_fabrics = fabric.get_fabric_ip_networks(client)
         except:
-            error = "ERR-LOGIN - Failed to log into CFM controller"
+            error = "ERR-GET - Failed to GET fabrics from CFM controller"
             return error
 
         fabric_data = []
 
         # Loop through cfm_fabrics and process IPZ
-        for i in cfm_fabrics:
-            desc = i['description']
+        for fab in cfm_fabrics:
+            desc = fab['description']
             if desc == '':
                 desc = 'HPE Composable Fabric'
             out ={
-                    'u_desc':i['description'],
-                    'u_fabu_uid':i['fabric_uuid'],
-                    'u_name':i['name'],
-                    'u_mode':i['mode'],
-                    'u_sub_address':i['subnet']['address'],
-                    'u_mask_prefix':i['subnet']['prefix_length']
+                    'u_desc':fab['description'],
+                    'u_fabu_uid':fab['fabric_uuid'],
+                    'u_name':fab['name'],
+                    'u_mode':fab['mode'],
+                    'u_sub_address':fab['subnet']['address'],
+                    'u_mask_prefix':fab['subnet']['prefix_length']
                   }
             fabric_data.append(out)
 

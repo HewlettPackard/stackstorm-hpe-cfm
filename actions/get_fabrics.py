@@ -15,7 +15,6 @@
 # __author__ = "@netwookie"
 # __credits__ = ["Rick Kauffman"]
 # __license__ = "Apache2.0"
-# __version__ = "1.0.0"
 # __maintainer__ = "Rick Kauffman"
 # __email__ = "rick.a.kauffman@hpe.com"
 
@@ -38,23 +37,23 @@ class fabricLookup(Action):
         try:
             cfm_fabrics = fabric.get_fabrics(client)
         except:
-            error = "ERR-LOGIN - Failed to log into CFM controller"
+            error = "ERR-GET - Failed to GET fabric from CFM controller"
             return error
 
         fabric_data = []
 
         # Loop through cfm_fabrics and process fabrics
         # Use try because variable may be empty
-        for i in cfm_fabrics:
-            desc = i['description']
+        for fab in cfm_fabrics:
+            desc = fab['description']
             if desc == '':
                 desc = 'HPE Composable Fabric'
             out ={
-                    'u_desc':i['description'],
-                    'u_uuid':i['uuid'],
-                    'u_name':i['name'],
-                    'u_stable':i['is_stable'],
-                    'u_fms':i['foreign_fabric_state']
+                    'u_desc':fab['description'],
+                    'u_uuid':fab['uuid'],
+                    'u_name':fab['name'],
+                    'u_stable':fab['is_stable'],
+                    'u_fms':fab['foreign_fabric_state']
                   }
             fabric_data.append(out)
 

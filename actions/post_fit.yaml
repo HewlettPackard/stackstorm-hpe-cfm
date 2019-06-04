@@ -1,26 +1,26 @@
 ---
 name: perform_fit
 pack: hpecfm
-description: Perform a FIT on the plexxi controller
+description: Perform a FIT on the hpecfm controller
 runner_type: python-script
 entry_point: perform_fit.py
 enabled: true
 parameters:
   ipaddress:
     type: "string"
-    description: "The IP address of a plexxi controller"
+    description: "The IP address of a hpecfm controller"
     required: true
     position: 0
     default: "{{ st2kv.system.ipaddress }}"
   username:
     type: "string"
-    description: "The username to log into a plexxi controller"
+    description: "The username to log into a hpecfm controller"
     required: true
     position: 1
     default: "{{ st2kv.system.username }}"
   password:
     type: "string"
-    description: "The password to a plexxi controller"
+    description: "The password to a hpecfm controller"
     required: true
     position: 2
     default: "{{ st2kv.system.password }}"

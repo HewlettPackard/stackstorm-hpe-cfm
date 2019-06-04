@@ -15,7 +15,6 @@
 # __author__ = "@netwookie"
 # __credits__ = ["Rick Kauffman"]
 # __license__ = "Apache2.0"
-# __version__ = "1.0.0"
 # __maintainer__ = "Rick Kauffman"
 # __email__ = "rick.a.kauffman@hpe.com"
 
@@ -36,23 +35,23 @@ class switchLookup(Action):
 
         # Get switches from plexxi controller
         try:
-            bunch_of_switches = fabric.get_switches(client)
+            switches = fabric.get_switches(client)
         except:
-            error = "ERR-LOGIN - Failed to log into CFM controller"
+            error = "ERR-GET - Failed to GET switches from CFM controller"
             return error
 
         # Setup a list for holding values
         switch_data = []
 
         # Process switch datat from plexxi API
-        for i in bunch_of_switches:
+        for sw in switches:
             # Build dictionary for return
             out = {
-                  'u_health': i['health'],
-                  'u_ip_address': i['ip_address'],
-                  'u_mac_address': i['mac_address'],
-                  'u_name': i['name'],
-                  'u_sw_version': i['sw_version']
+                  'u_health': sw['health'],
+                  'u_ip_address': sw['ip_address'],
+                  'u_mac_address': sw['mac_address'],
+                  'u_name': sw['name'],
+                  'u_sw_version': sw['sw_version']
                   }
             switch_data.append(out)
 

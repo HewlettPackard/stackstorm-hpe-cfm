@@ -1,6 +1,6 @@
 version: 1.0
 
-description: "Send plexxi switches to snow"
+description: "Send hpecfm switches to snow"
 
 input:
   - switches

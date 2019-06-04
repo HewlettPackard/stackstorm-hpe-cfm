@@ -1,6 +1,6 @@
 # stackstorm-hpe-cfm
 Current status: Alpha
-Version : 0.1.1
+Version : 0.1.2
 
 
 HPE Composable Fabric stackstorm pack
@@ -11,7 +11,7 @@ For scripts that use the pyhpecfm python library for HPE Composable Fabric, they
 
 In order to do this the StackStorm datastore offers a perfect place to hold this data.
 
-In the `/opt/stackstorm/packs/hpecfm/etc` directory there is a file called system-settings.json
+In the `/opt/stackstorm/packs/hpecfm/etc` directory there is a file called `system-settings.json`
 ```
 [
   {

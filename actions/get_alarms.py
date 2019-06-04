@@ -15,7 +15,6 @@
 # __author__ = "@netwookie"
 # __credits__ = ["Rick Kauffman"]
 # __license__ = "Apache2.0"
-# __version__ = "1.0.0"
 # __maintainer__ = "Rick Kauffman"
 # __email__ = "rick.a.kauffman@hpe.com"
 
@@ -34,7 +33,7 @@ class alarmLookup(Action):
         try:
             cfm_audits = system.get_audit_logs(client)
         except:
-            error = "ERR-LOGIN - Failed to log into CFM controller"
+            error = "ERR-GET - Failed to GET audits from CFM controller"
             return error
 
         # Create a empty list for alarms
@@ -42,16 +41,16 @@ class alarmLookup(Action):
 
         # Loop through cfm_audits and process ALARMS
 
-        for i in cfm_audits:
-            typex = i['record_type']
+        for a in cfm_audits:
+            typex = a['record_type']
             if typex == 'ALARM':
                 # Build dictionary to add to list
                 out = {
-                      'u_eventType': i['data']['event_type'],
-                      'u_typex': i['record_type'],
-                      'u_sev': i['severity'],
-                      'u_desc': i['description']
+                      'u_eventType': a['data']['event_type'],
+                      'u_typex': a['record_type'],
+                      'u_sev': a['severity'],
+                      'u_desc': a['description']
                       }
                 alarm_data.append(out)
-                
+
         return (True, alarm_data)
