@@ -20,39 +20,28 @@
 
 # A python script for getting a dictionary of switches
 
-from pyhpecfm.auth import CFMClient
 from pyhpecfm import fabric
+from lib.actions import HpecfmBaseAction
 
 
-from st2common.runners.base_action import Action
-
-
-class switchLookup(Action):
-    def run(self, ipaddress=None, username=None, password=None):
-
-        # Create client connection
-        client = CFMClient(ipaddress, username, password)
-
+class switchLookup(HpecfmBaseAction):
+    def run(self):
         # Get switches from plexxi controller
-        try:
-            switches = fabric.get_switches(client)
-        except:
-            error = "ERR-GET - Failed to GET switches from CFM controller"
-            return error
+        switches = fabric.get_switches(self.client)
+        if isinstance(switches, list):
+            # Setup a list for holding dictionaries
+            switch_data = []
+            # Iterate through switch data from CFM API
+            for i in switches:
+                # Build dictionary for return
+                out = {
+                      'u_health': i['health'],
+                      'u_ip_address': i['ip_address'],
+                      'u_mac_address': i['mac_address'],
+                      'u_name': i['name'],
+                      'u_sw_version': i['sw_version']
+                      }
+                switch_data.append(out)
 
-        # Setup a list for holding values
-        switch_data = []
-
-        # Process switch datat from plexxi API
-        for sw in switches:
-            # Build dictionary for return
-            out = {
-                  'u_health': sw['health'],
-                  'u_ip_address': sw['ip_address'],
-                  'u_mac_address': sw['mac_address'],
-                  'u_name': sw['name'],
-                  'u_sw_version': sw['sw_version']
-                  }
-            switch_data.append(out)
-
-        return (True, switch_data)
+            return (True, switch_data)
+        return (False, switches)

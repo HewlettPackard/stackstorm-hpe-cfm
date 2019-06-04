@@ -1,6 +1,6 @@
 ---
 name: getswitches
-description: A workflow for getting hpecfm switches into stackstorm.
+description: A workflow for getting plexxi switches into stackstorm.
 runner_type: orquesta
 entry_point: workflows/getswitches.yaml
 enabled: true

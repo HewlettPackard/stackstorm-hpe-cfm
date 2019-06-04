@@ -19,7 +19,8 @@
 # __maintainer__ = "Rick Kauffman"
 # __email__ = "rick.a.kauffman@hpe.com"
 
-# A python script for sending a 'fit' to the cfm controller
+# A python script for getting a dictionary of composable fabrics
+
 from pyhpecfm.auth import CFMClient
 from pyhpecfm import fabric
 
@@ -27,17 +28,34 @@ from pyhpecfm import fabric
 from st2common.runners.base_action import Action
 
 
-class fabricfit(Action):
-    def run(self, ipaddress=None, username=None, password=None, fab_uuid, name, description):
+class fabricLookup(Action):
+    def run(self, ipaddress=None, username=None, password=None):
 
         # Create client connection
         client = CFMClient(ipaddress, username, password)
 
-        # Send fit request to the plexxi controller
+        # Get fabrics from plexxi controller
         try:
-            cfm_fit = fabric.perform_fit(client, fab_uuid, name, description)
+            cfm_fabrics = fabric.get_fabrics(client)
         except:
-            error = "ERR-LOGIN - Failed to perform fit on CFM controller"
+            error = "ERR-LOGIN - Failed to log into CFM controller"
             return error
 
-        return
+        fabric_data = []
+
+        # Loop through cfm_fabrics and process fabrics
+        # Use try because variable may be empty
+        for i in cfm_fabrics:
+            desc = i['description']
+            if desc == '':
+                desc = 'HPE Composable Fabric'
+            out ={
+                    'u_desc':i['description'],
+                    'u_uuid':i['uuid'],
+                    'u_name':i['name'],
+                    'u_stable':i['is_stable'],
+                    'u_fms':i['foreign_fabric_state']
+                  }
+            fabric_data.append(out)
+
+        return (True, fabric_data)

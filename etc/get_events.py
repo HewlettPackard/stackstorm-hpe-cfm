@@ -15,46 +15,44 @@
 # __author__ = "@netwookie"
 # __credits__ = ["Rick Kauffman"]
 # __license__ = "Apache2.0"
+# __version__ = "1.0.0"
 # __maintainer__ = "Rick Kauffman"
 # __email__ = "rick.a.kauffman@hpe.com"
 
-# A python script for getting a dictionary of fabric ip addresses
-
+import json
 from pyhpecfm.auth import CFMClient
-from pyhpecfm import fabric
-
-
+from pyhpecfm import system
 from st2common.runners.base_action import Action
 
-
-class fabricIpLookup(Action):
+class eventLookup(Action):
     def run(self, ipaddress=None, username=None, password=None):
 
         # Create client connection
         client = CFMClient(ipaddress, username, password)
 
-        # Get fabric_ips from plexxi controller
+
         try:
-            cfm_fabrics = fabric.get_fabric_ip_networks(client)
+            cfm_audits = system.get_audit_logs(client)
         except:
-            error = "ERR-GET - Failed to GET fabrics from CFM controller"
+            error = "ERR-LOGIN - Failed to log into CFM controller"
             return error
 
-        fabric_data = []
+        # Create a empty list for alarms
+        event_data = []
 
-        # Loop through cfm_fabrics and process IPZ
-        for fab in cfm_fabrics:
-            desc = fab['description']
-            if desc == '':
-                desc = 'HPE Composable Fabric'
-            out ={
-                    'u_desc':fab['description'],
-                    'u_fabu_uid':fab['fabric_uuid'],
-                    'u_name':fab['name'],
-                    'u_mode':fab['mode'],
-                    'u_sub_address':fab['subnet']['address'],
-                    'u_mask_prefix':fab['subnet']['prefix_length']
-                  }
-            fabric_data.append(out)
+        # Loop through cfm_audits and process EVENTS
+        for i in cfm_audits:
+            typex = i['record_type']
+            if typex == 'EVENT':
+                # Build dictionary to add to list
+                out = {
+                      'u_eventType': i['data']['event_type'],
+                      'u_typex': i['record_type'],
+                      'u_sev': i['severity'],
+                      'u_desc': i['description'],
+                      'u_name' : i['data']['object_name'],
+                      'u_typeo' : i['data']['object_type']
+                      }
+                event_data.append(out)
 
-        return (True, fabric_data)
+        return (True, event_data)

@@ -1,0 +1,15 @@
+---
+ipaddress:
+  description: "IP address of the CFM controller (e.g.: 'fqdn.to.device' or '10.10.10.10')"
+  type: "string"
+  secret: false
+  required: true
+username:
+  description: "Username for the CFM controller"
+  type: "string"
+  required: true
+password:
+  description: "Password for the CFM controller user account"
+  type: "string"
+  secret: true
+  required: true

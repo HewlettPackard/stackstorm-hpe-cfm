@@ -15,10 +15,11 @@
 # __author__ = "@netwookie"
 # __credits__ = ["Rick Kauffman"]
 # __license__ = "Apache2.0"
+# __version__ = "1.0.0"
 # __maintainer__ = "Rick Kauffman"
 # __email__ = "rick.a.kauffman@hpe.com"
 
-# A python script for getting a dictionary of composable fabrics
+# A python script for getting a dictionary of fabric ip addresses
 
 from pyhpecfm.auth import CFMClient
 from pyhpecfm import fabric
@@ -27,33 +28,33 @@ from pyhpecfm import fabric
 from st2common.runners.base_action import Action
 
 
-class fabricLookup(Action):
+class fabricIpLookup(Action):
     def run(self, ipaddress=None, username=None, password=None):
 
         # Create client connection
         client = CFMClient(ipaddress, username, password)
 
-        # Get fabrics from plexxi controller
+        # Get fabric_ips from plexxi controller
         try:
-            cfm_fabrics = fabric.get_fabrics(client)
+            cfm_fabrics = fabric.get_fabric_ip_networks(client)
         except:
-            error = "ERR-GET - Failed to GET fabric from CFM controller"
+            error = "ERR-LOGIN - Failed to log into CFM controller"
             return error
 
         fabric_data = []
 
-        # Loop through cfm_fabrics and process fabrics
-        # Use try because variable may be empty
-        for fab in cfm_fabrics:
-            desc = fab['description']
+        # Loop through cfm_fabrics and process IPZ
+        for i in cfm_fabrics:
+            desc = i['description']
             if desc == '':
                 desc = 'HPE Composable Fabric'
             out ={
-                    'u_desc':fab['description'],
-                    'u_uuid':fab['uuid'],
-                    'u_name':fab['name'],
-                    'u_stable':fab['is_stable'],
-                    'u_fms':fab['foreign_fabric_state']
+                    'u_desc':i['description'],
+                    'u_fabu_uid':i['fabric_uuid'],
+                    'u_name':i['name'],
+                    'u_mode':i['mode'],
+                    'u_sub_address':i['subnet']['address'],
+                    'u_mask_prefix':i['subnet']['prefix_length']
                   }
             fabric_data.append(out)
 

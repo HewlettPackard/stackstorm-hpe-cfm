@@ -1,6 +1,6 @@
 ---
 name: sendsnow
-description: A workflow for sending hpecfm switches to servicenow.
+description: A workflow for sending plexxi switches to servicenow.
 runner_type: orquesta
 entry_point: workflows/sendsnow.yaml
 enabled: true

@@ -15,6 +15,7 @@
 # __author__ = "@netwookie"
 # __credits__ = ["Rick Kauffman"]
 # __license__ = "Apache2.0"
+# __version__ = "1.0.0"
 # __maintainer__ = "Rick Kauffman"
 # __email__ = "rick.a.kauffman@hpe.com"
 
@@ -23,7 +24,7 @@ from pyhpecfm.auth import CFMClient
 from pyhpecfm import system
 from st2common.runners.base_action import Action
 
-class eventLookup(Action):
+class alarmLookup(Action):
     def run(self, ipaddress=None, username=None, password=None):
 
         # Create client connection
@@ -33,25 +34,24 @@ class eventLookup(Action):
         try:
             cfm_audits = system.get_audit_logs(client)
         except:
-            error = "ERR-GET - Failed to GET audits from CFM controller"
+            error = "ERR-LOGIN - Failed to log into CFM controller"
             return error
 
-        # Create a empty list for events
-        event_data = []
+        # Create a empty list for alarms
+        alarm_data = []
 
-        # Loop through cfm_audits and process EVENTS
-        for e in cfm_audits:
-            typex = e['record_type']
-            if typex == 'EVENT':
+        # Loop through cfm_audits and process ALARMS
+
+        for i in cfm_audits:
+            typex = i['record_type']
+            if typex == 'ALARM':
                 # Build dictionary to add to list
                 out = {
-                      'u_eventType': e['data']['event_type'],
-                      'u_typex': e['record_type'],
-                      'u_sev': e['severity'],
-                      'u_desc': e['description'],
-                      'u_name' : e['data']['object_name'],
-                      'u_typeo' : e['data']['object_type']
+                      'u_eventType': i['data']['event_type'],
+                      'u_typex': i['record_type'],
+                      'u_sev': i['severity'],
+                      'u_desc': i['description']
                       }
-                event_data.append(out)
-
-        return (True, event_data)
+                alarm_data.append(out)
+                
+        return (True, alarm_data)
