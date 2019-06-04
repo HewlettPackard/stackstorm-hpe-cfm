@@ -54,7 +54,7 @@ class fabricIpLookup(Action):
                     'u_name':i['name'],
                     'u_mode':i['mode'],
                     'u_sub_address':i['subnet']['address'],
-                    'u_sub_prefix':i['subnet']['prefix']
+                    'u_mask_prefix':i['subnet']['prefix_length']
                   }
             fabric_data.append(out)
 
