@@ -25,34 +25,24 @@ from pyhpecfm import system
 from st2common.runners.base_action import Action
 
 class eventLookup(Action):
-    def run(self, ipaddress=None, username=None, password=None):
-
-        # Create client connection
-        client = CFMClient(ipaddress, username, password)
-
-
-        try:
-            cfm_audits = system.get_audit_logs(client)
-        except:
-            error = "ERR-LOGIN - Failed to log into CFM controller"
-            return error
-
+    def run(self):
+        cfm_audits = system.get_audit_logs(client)
         # Create a empty list for alarms
         event_data = []
-
         # Loop through cfm_audits and process EVENTS
-        for i in cfm_audits:
-            typex = i['record_type']
+        for event in cfm_audits:
+            typex = event['record_type']
             if typex == 'EVENT':
                 # Build dictionary to add to list
                 out = {
-                      'u_eventType': i['data']['event_type'],
-                      'u_typex': i['record_type'],
-                      'u_sev': i['severity'],
-                      'u_desc': i['description'],
-                      'u_name' : i['data']['object_name'],
-                      'u_typeo' : i['data']['object_type']
+                      'u_eventType': event['data']['event_type'],
+                      'u_typex': event['record_type'],
+                      'u_sev': event['severity'],
+                      'u_desc': event['description'],
+                      'u_name' : event['data']['object_name'],
+                      'u_typeo' : event['data']['object_type']
                       }
                 event_data.append(out)
 
         return (True, event_data)
+    return (False, cfm_audits)
