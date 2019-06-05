@@ -25,6 +25,7 @@ Example configuration:
   username: "admin"
   password: "admin"
 ```
+You can also run `st2 pack config hpecfm` and answer the promts
 
 **Note** : When modifying the configuration in `/opt/stackstorm/configs/` please
            remember to tell StackStorm to load these new values by running
@@ -39,7 +40,7 @@ Actions are defined in two groups:
 * ``get_alarms``
 * ``get_switches``
 * ``get_events``
-* ``get_fabrics``
+* ``post_fit``
 
 ### Orquestra Workflows: will not
 * ``sendsnow``
