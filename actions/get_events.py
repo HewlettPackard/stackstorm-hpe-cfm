@@ -19,30 +19,30 @@
 # __maintainer__ = "Rick Kauffman"
 # __email__ = "rick.a.kauffman@hpe.com"
 
-import json
-from pyhpecfm.auth import CFMClient
+
 from pyhpecfm import system
-from st2common.runners.base_action import Action
+from lib.actions import HpecfmBaseAction
 
-class eventLookup(Action):
+class eventLookup(HpecfmBaseAction):
     def run(self):
-        cfm_audits = system.get_audit_logs(client)
-        # Create a empty list for alarms
-        event_data = []
-        # Loop through cfm_audits and process EVENTS
-        for event in cfm_audits:
-            typex = event['record_type']
-            if typex == 'EVENT':
-                # Build dictionary to add to list
-                out = {
-                      'u_eventType': event['data']['event_type'],
-                      'u_typex': event['record_type'],
-                      'u_sev': event['severity'],
-                      'u_desc': event['description'],
-                      'u_name' : event['data']['object_name'],
-                      'u_typeo' : event['data']['object_type']
-                      }
-                event_data.append(out)
+        cfm_audits = system.get_audit_logs(self.client)
+        if isinstance(cfm_audits, list):
+            # Create a empty list for alarms
+            event_data = []
+            # Loop through cfm_audits and process EVENTS
+            for event in cfm_audits:
+                typex = event['record_type']
+                if typex == 'EVENT':
+                    # Build dictionary to add to list
+                    out = {
+                          'u_eventType': event['data']['event_type'],
+                          'u_typex': event['record_type'],
+                          'u_sev': event['severity'],
+                          'u_desc': event['description'],
+                          'u_name' : event['data']['object_name'],
+                          'u_typeo' : event['data']['object_type']
+                          }
+                    event_data.append(out)
 
-        return (True, event_data)
-    return (False, cfm_audits)
+            return (True, event_data)
+        return (False, cfm_audits)

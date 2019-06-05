@@ -12,4 +12,4 @@ tasks:
         do: fit
 
   fit:
-    action: hpecfm.awf_performfit fabrics=<% ctx().fabrics %>
+    action: hpecfm.performfit fabrics=<% ctx().fabrics %>

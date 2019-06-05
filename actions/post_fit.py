@@ -20,13 +20,13 @@
 
 # A python script for sending a 'fit' to the cfm controller
 
+from pyhpecfm import fabric
 from lib.action import HpecfmBaseAction
 
 class FabricFit(HpecfmBaseAction):
     def run(self, fab_uuid=None, name=None, description=None):
         # Send fit request to the plexxi controller
-        #status = fabric.perform_fit(self.device, fab_uuid, name, description)
-        status = ''
+        status = fabric.perform_fit(self.client, fab_uuid, name, description)
         if status == 200:
             return(True, status)
         return (False, status)

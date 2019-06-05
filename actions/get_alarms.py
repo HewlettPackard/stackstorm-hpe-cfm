@@ -18,12 +18,11 @@
 # __maintainer__ = "Rick Kauffman"
 # __email__ = "rick.a.kauffman@hpe.com"
 
-import json
-from pyhpecfm.auth import CFMClient
-from pyhpecfm import system
-from st2common.runners.base_action import Action
 
-class alarmLookup(Action):
+from pyhpecfm import system
+from lib.actions import HpecfmBaseAction
+
+class alarmLookup(HpecfmBaseAction):
     def run(self):
         cfm_audits = system.get_audit_logs(self.client)
         if isinstance(cfm_audits, list):
