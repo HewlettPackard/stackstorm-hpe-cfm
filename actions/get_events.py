@@ -19,76 +19,30 @@
 # __maintainer__ = "Rick Kauffman"
 # __email__ = "rick.a.kauffman@hpe.com"
 
-import json
-from pyhpecfm.auth import CFMClient
+
 from pyhpecfm import system
-from st2common.runners.base_action import Action
+from lib.actions import HpecfmBaseAction
 
-class eventLookup(Action):
-    def run(self, ipaddress=None, username=None, password=None):
+class eventLookup(HpecfmBaseAction):
+    def run(self):
+        cfm_audits = system.get_audit_logs(self.client)
+        if isinstance(cfm_audits, list):
+            # Create a empty list for alarms
+            event_data = []
+            # Loop through cfm_audits and process EVENTS
+            for event in cfm_audits:
+                typex = event['record_type']
+                if typex == 'EVENT':
+                    # Build dictionary to add to list
+                    out = {
+                          'u_eventType': event['data']['event_type'],
+                          'u_typex': event['record_type'],
+                          'u_sev': event['severity'],
+                          'u_desc': event['description'],
+                          'u_name' : event['data']['object_name'],
+                          'u_typeo' : event['data']['object_type']
+                          }
+                    event_data.append(out)
 
-        # Create client connection
-        client = CFMClient(ipaddress, username, password)
-
-
-        try:
-            cfm_audits = system.get_audit_logs(client)
-        except:
-            error = "ERR-LOGIN - Failed to log into CFM controller"
-            return error
-
-        # Create a empty list for alarms
-        event_data = []
-
-        # Set some counters
-        c = 0
-        x = 0
-
-        # Loop through cfm_audits and process ALARMS
-        for i in cfm_audits:
-
-            try:
-                typex = cfm_audits[c]['record_type']
-            except:
-                typex = '-'
-
-            if typex == 'EVENT':
-
-                try:
-                    eventType = cfm_audits[c]['data']['event_type']
-                except:
-                    eventType = '-'
-
-                try:
-                    objectName = cfm_audits[c]['data']['object_name']
-                except:
-                    objectName = '-'
-
-                try:
-                    objectType = cfm_audits[c]['data']['object_type']
-                except:
-                    objectType = '-'
-
-                try:
-                    sev = cfm_audits[c]['severity']
-                except:
-                    sev = '-'
-
-                try:
-                    desc = cfm_audits[c]['description']
-                except:
-                    desc = '-'
-
-                # Build dictionary to add to list
-                out = {
-                      'u_eventType': eventType,
-                      'u_typex': typex,
-                      'u_sev': sev,
-                      'u_desc': desc,
-                      'u_name' : objectName,
-                      'u_typeo' : objectType
-                      }
-                event_data.append(out)
-
-            c = c + 1
-        return (True, event_data)
+            return (True, event_data)
+        return (False, cfm_audits)

@@ -15,69 +15,31 @@
 # __author__ = "@netwookie"
 # __credits__ = ["Rick Kauffman"]
 # __license__ = "Apache2.0"
-# __version__ = "1.0.0"
 # __maintainer__ = "Rick Kauffman"
 # __email__ = "rick.a.kauffman@hpe.com"
 
-import json
-from pyhpecfm.auth import CFMClient
+
 from pyhpecfm import system
-from st2common.runners.base_action import Action
+from lib.actions import HpecfmBaseAction
 
-class alarmLookup(Action):
-    def run(self, ipaddress=None, username=None, password=None):
+class alarmLookup(HpecfmBaseAction):
+    def run(self):
+        cfm_audits = system.get_audit_logs(self.client)
+        if isinstance(cfm_audits, list):
+            # Create a empty list for alarms
+            alarm_data = []
+            # Loop through cfm_audits and process ALARMS
+            for alarm in cfm_audits:
+                typex = alarm['record_type']
+                if typex == 'ALARM':
+                    # Build dictionary to add to list
+                    out = {
+                          'u_eventType': alarm['data']['event_type'],
+                          'u_typex': alarm['record_type'],
+                          'u_sev': alarm['severity'],
+                          'u_desc': alarm['description']
+                          }
+                    alarm_data.append(out)
 
-        # Create client connection
-        client = CFMClient(ipaddress, username, password)
-
-
-        try:
-            cfm_audits = system.get_audit_logs(client)
-        except:
-            error = "ERR-LOGIN - Failed to log into CFM controller"
-            return error
-
-        # Create a empty list for alarms
-        alarm_data = []
-
-        # Set some counters
-        c = 0
-        x = 0
-
-        # Loop through cfm_audits and process ALARMS
-
-        for i in cfm_audits:
-
-            try:
-                typex = cfm_audits[c]['record_type']
-            except:
-                typex = '-'
-
-            if typex == 'ALARM':
-
-                try:
-                    eventType = cfm_audits[c]['data']['event_type']
-                except:
-                    eventType = '-'
-
-                try:
-                    sev = cfm_audits[c]['severity']
-                except:
-                    sev = '-'
-
-                try:
-                    desc = cfm_audits[c]['description']
-                except:
-                    desc = '-'
-
-                # Build dictionary to add to list
-                out = {
-                      'u_eventType': eventType,
-                      'u_typex': typex,
-                      'u_sev': sev,
-                      'u_desc': desc
-                      }
-                alarm_data.append(out)
-
-            c = c + 1
-        return (True, alarm_data)
+            return (True, alarm_data)
+        return (False, cfm_audits)

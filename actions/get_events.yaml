@@ -1,26 +1,7 @@
 ---
 name: get_events
 pack: hpecfm
-description: Get an array of events from the plexxi controller
+description: Get an array of events from the hpecfm controller
 runner_type: python-script
 entry_point: get_events.py
 enabled: true
-parameters:
-  ipaddress:
-    type: "string"
-    description: "The IP address of a plexxi controller"
-    required: true
-    position: 0
-    default: "{{ st2kv.system.ipaddress }}"
-  username:
-    type: "string"
-    description: "The username to log into a plexxi controller"
-    required: true
-    position: 1
-    default: "{{ st2kv.system.username }}"
-  password:
-    type: "string"
-    description: "The password to a plexxi controller"
-    required: true
-    position: 2
-    default: "{{ st2kv.system.password }}"

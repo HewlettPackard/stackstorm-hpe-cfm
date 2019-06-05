@@ -1,6 +1,6 @@
 ---
-name: awf-getswitches
+name: getswitches
 description: A workflow for getting plexxi switches into stackstorm.
 runner_type: orquesta
-entry_point: workflows/awf_getswitches.yaml
+entry_point: workflows/getswitches.yaml
 enabled: true

@@ -1,35 +1,49 @@
-# stackstorm-hpe-cfm
-Current status: Alpha
-Version : 0.1.1
+# HPECFM Integration Pack
+This pack allows you to integrate with
+[HPE COmposable Fabric](https://www.hpe.com/us/en/integrated-systems/composable-fabric.html).
 
+## Configuration
+Copy the example configuration in [hpecfm.yaml.example](./hpecfm.yaml.example) to
+`/opt/stackstorm/configs/hpecfm.yaml` and edit as required.
 
-HPE Composable Fabric stackstorm pack
+It must contain:
 
-To install this pack on a stackstorm server: `st2 pack install https://www.github.com/HewlettPackard/stackstorm-hpe-cfm.git`
-
-For scripts that use the pyhpecfm python library for HPE Composable Fabric, they will need the IP address username and password for the CFM controller.
-
-In order to do this the StackStorm datastore offers a perfect place to hold this data.
-
-In the `/opt/stackstorm/packs/hpecfm/etc` directory there is a file called system-settings.json
 ```
-[
-  {
-    "name" : "ipaddress",
-    "value": "172.25.192.138"
-  },
-  {
-    "name" : "username",
-    "value": "admin"
-  },
-  {
-    "name" : "password",
-    "value": "siesta3"
-  }
-]
+ipaddress - Your CFM appliance IP address
+username - CFM Username
+password - CFM Password
 ```
-Edit this file to have the appropriate data for the CFM you need to access.
 
-Save the file and issue: `st2 key load system-settings.json`
+You can also use dynamic values from the datastore. See the
+[docs](https://docs.stackstorm.com/reference/pack_configs.html) for more info.
 
-Now these variable can be accessed in actions by using "{{ st2kv.system.ipaddress }}"
+Example configuration:
+
+```yaml
+---
+  ipaddress: "10.10.10.10"
+  username: "admin"
+  password: "admin"
+```
+You can also run `st2 pack config hpecfm` and answer the promts
+
+**Note** : When modifying the configuration in `/opt/stackstorm/configs/` please
+           remember to tell StackStorm to load these new values by running
+           `st2ctl reload --register-configs`
+
+
+## Actions
+
+Actions are defined in two groups:
+
+### Individual actions: GET, POST, PUT with under bar will precede each individual action
+* ``get_alarms``
+* ``get_switches``
+* ``get_events``
+* ``post_fit``
+
+### Orquestra Workflows: will not
+* ``sendsnow``
+* ``performfit``
+* ``getswitches``
+* ``getfabric_for_fit``

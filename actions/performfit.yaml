@@ -1,0 +1,10 @@
+---
+name: performfit
+description: A workflow for performing a fit on the CFM controller.
+runner_type: orquesta
+entry_point: workflows/performfit.yaml
+enabled: true
+parameters:
+  fabrics:
+    required: true
+    type: array
