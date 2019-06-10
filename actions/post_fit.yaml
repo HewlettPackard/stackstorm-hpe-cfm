@@ -1,0 +1,23 @@
+---
+name: post_fit
+pack: hpecfm
+description: Perform a FIT on the plexxi controller
+runner_type: python-script
+entry_point: post_fit.py
+enabled: true
+parameters:
+  fab_uuid:
+    type: "string"
+    description: "The UUID of the fabric"
+    required: true
+    position: 0
+  name:
+    type: "string"
+    description: "The fabric name"
+    required: true
+    position: 1
+  description:
+    type: "string"
+    description: "The fabric description"
+    required: true
+    position: 2

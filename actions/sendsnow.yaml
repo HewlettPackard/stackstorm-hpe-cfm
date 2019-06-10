@@ -1,8 +1,8 @@
 ---
-name: awf-sendsnow
+name: sendsnow
 description: A workflow for sending plexxi switches to servicenow.
 runner_type: orquesta
-entry_point: workflows/awf_sendsnow.yaml
+entry_point: workflows/sendsnow.yaml
 enabled: true
 parameters:
   switches:

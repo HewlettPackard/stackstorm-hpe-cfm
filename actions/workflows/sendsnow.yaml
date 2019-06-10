@@ -1,12 +1,12 @@
 version: 1.0
 
-description: "Send plexxi switches to snow"
+description: "Send hpecfm switches to snow"
 
 input:
   - switches
 
 tasks:
 
-    printswitches:
+    snowswitches:
       with: <% ctx().switches %>
       action: servicenow.create_record table="u_cfm_asset" payload='<% item() %>'

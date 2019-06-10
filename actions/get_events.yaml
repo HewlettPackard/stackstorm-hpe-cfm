@@ -1,0 +1,7 @@
+---
+name: get_events
+pack: hpecfm
+description: Get an array of events from the hpecfm controller
+runner_type: python-script
+entry_point: get_events.py
+enabled: true
