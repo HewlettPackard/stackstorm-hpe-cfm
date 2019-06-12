@@ -27,7 +27,7 @@ from lib.actions import HpecfmBaseAction
 class CreateBackup(HpecfmBaseAction):
     def run(self, fab_uuid=None, name=None, description=None):
         # Send create backup request to the HPE CFM controller
-        status = system.create_backup(self.client)
+        result = system.create_backup(self.client)
         if result.status_code == 200:
             return (True, result.status_code)
         return (False, result.status_code)
