@@ -12,4 +12,4 @@ ack:
   append_url: true
   format: "Ack! Fetching your fabrics now."
 result:
-  format: "Here are your switches: {~} {{ execution.result }}"
+  format: "Here are your fabrics: {~} {{ execution.result }}"
