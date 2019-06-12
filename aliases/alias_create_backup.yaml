@@ -5,6 +5,7 @@ description: "Launch a Backup operation on the HPE Composable Fabric"
 action_ref: "hpecfm.getfabric_for_fit"
 formats:
   - 'backup now'
+  - 'launch back'
 ack:
   append_url: true
   format: "Ack. Backing up the system now."
