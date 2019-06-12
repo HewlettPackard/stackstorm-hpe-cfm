@@ -1,0 +1,15 @@
+---
+name: "post_fit"
+pack: "hpecfm"
+description: "Run a FIT operation on the HPE Composable Fabric"
+action_ref: "hpecfm.getfabric_for_fit"
+formats:
+  - 'run a fit'
+  - 'fit the network'
+  - 'optimize my network'
+ack:
+  append_url: true
+  format: "Ack. Optimizing the network now."
+result:
+  format: "Here are the results: {~} {{ execution.result }}"
+
