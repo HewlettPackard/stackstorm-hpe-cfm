@@ -28,6 +28,6 @@ class CreateBackup(HpecfmBaseAction):
     def run(self, fab_uuid=None, name=None, description=None):
         # Send create backup request to the HPE CFM controller
         status = system.create_backup(self.client)
-        if status == 200:
-            return(True, status)
-        return (False, status)
+        if result.status_code == 200:
+            return (True, result.status_code)
+        return (False, result.status_code)
