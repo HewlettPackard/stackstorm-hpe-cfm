@@ -2,7 +2,7 @@
 name: "create_backup"
 pack: "hpecfm"
 description: "Launch a Backup operation on the HPE Composable Fabric"
-action_ref: "hpecfm.getfabric_for_fit"
+action_ref: "hpecfm.create_backup"
 formats:
   - 'backup now'
   - 'launch back'
