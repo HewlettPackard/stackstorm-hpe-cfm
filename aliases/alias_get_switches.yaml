@@ -1,0 +1,17 @@
+---
+name: "get_switches"
+pack: "hpecfm"
+description: "get me a list of switches known by HPE Composable Fabric Manager"
+action_ref: "hpecfm.get_switches"
+formats:
+  - "list switches"
+  - "show me switches"
+  - "show my switches"
+  - "get switches"
+ack:
+  append_url: true
+  format: "Ack! Fetching your switches now."
+result:
+  format: "Here are your switches: {~} {{ execution.result }}"
+
+
