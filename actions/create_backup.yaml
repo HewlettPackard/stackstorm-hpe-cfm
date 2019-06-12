@@ -1,0 +1,7 @@
+---
+name: create_backup
+pack: hpecfm
+description: create a new backup on the HPE Composable Fabric Manager controller
+runner_type: python-script
+entry_point: create_backup.py
+enabled: true
