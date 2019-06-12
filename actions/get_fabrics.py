@@ -35,7 +35,7 @@ class fabricLookup(HpecfmBaseAction):
                 if desc == '':
                     desc = 'HPE Composable Fabric'
                 out ={
-                        'u_desc':fab['description'],
+                        'u_desc':desc,
                         'u_uuid':fab['uuid'],
                         'u_name':fab['name'],
                         'u_stable':fab['is_stable'],
