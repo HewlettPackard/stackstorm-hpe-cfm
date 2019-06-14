@@ -1,0 +1,15 @@
+---
+name: "get_fabrics"
+pack: "hpecfm"
+description: "get me a list of fabrics known by HPE Composable Fabric Manager"
+action_ref: "hpecfm.get_fabrics"
+formats:
+  - "list fabrics"
+  - "show me fabrics"
+  - "show my fabrics"
+  - "get fabrics"
+ack:
+  append_url: true
+  format: "Ack! Fetching your fabrics now."
+result:
+  format: "Here are your fabrics: {~} {{ execution.result }}"
