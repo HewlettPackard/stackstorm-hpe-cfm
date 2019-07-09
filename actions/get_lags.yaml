@@ -1,0 +1,47 @@
+---
+name: performfit
+description: A workflow for performing a fit on the CFM controller.
+runner_type: orquesta
+entry_point: workflows/performfit.yaml
+enabled: true
+parameters:
+  count_only:
+    required: true
+    type: booleen
+    description: "if true, only the total count will be returned"
+    position: 0
+  mac_attachments:
+    required: true
+    type: booleen
+    description: "if true, mac_attachments will be added to return"
+    position: 1
+  mac_learning:
+    required: true
+    type: booleen
+    description: "if true, mac_learning will be added to return"
+    position: 2
+  ports:
+    required: true
+    type: booleen
+    description: "if true, lag port information will be added to return"
+    position: 3
+  port_type:
+    required: true
+    type: string
+    description: "either access or fabric"
+    position: 4
+  tag:
+    required: true
+    type: booleen
+    description: "if true, tag attributes will be added to return"
+    position: 5
+  type:
+    required: true
+    type: booleen
+    description: "set to provisioned"
+    position: 6
+  vlan_groups:
+    required: true
+    type: booleen
+    description: "if true, vlan attributes will be added to return"
+    position: 7
