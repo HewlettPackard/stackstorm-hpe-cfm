@@ -7,22 +7,22 @@ enabled: true
 parameters:
   count_only:
     required: true
-    type: booleen
+    type: boolean
     description: "if true, only the total count will be returned"
     position: 0
   mac_attachments:
     required: true
-    type: booleen
+    type: boolean
     description: "if true, mac_attachments will be added to return"
     position: 1
   mac_learning:
     required: true
-    type: booleen
+    type: boolean
     description: "if true, mac_learning will be added to return"
     position: 2
   ports:
     required: true
-    type: booleen
+    type: boolean
     description: "if true, lag port information will be added to return"
     position: 3
   port_type:
@@ -32,16 +32,16 @@ parameters:
     position: 4
   tag:
     required: true
-    type: booleen
+    type: boolean
     description: "if true, tag attributes will be added to return"
     position: 5
   type:
     required: true
-    type: booleen
-    description: "set to provisioned"
+    type: string
+    description: "set to provisioned, by default every single port is a lag"
     position: 6
   vlan_groups:
     required: true
-    type: booleen
+    type: boolean
     description: "if true, vlan attributes will be added to return"
     position: 7
