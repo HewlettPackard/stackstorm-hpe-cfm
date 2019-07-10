@@ -1,8 +1,8 @@
 ---
-name: performfit
-description: A workflow for performing a fit on the CFM controller.
-runner_type: orquesta
-entry_point: workflows/performfit.yaml
+name: get_lags
+description: Get an array of lag settings from the cfm controller.
+runner_type: python-script
+entry_point: get_lags.py
 enabled: true
 parameters:
   count_only:
