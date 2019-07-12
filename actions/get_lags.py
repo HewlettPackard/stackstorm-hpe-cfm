@@ -23,6 +23,9 @@ from pyhpecfm import fabric
 from lib.actions import HpecfmBaseAction
 
 class lagLookup(HpecfmBaseAction):
-    def run(self, **kwargs):
-        cfm_lags=fabric.get_lags(self.client,kwargs)
+    def run(self,**kwargs):
+        if **kwargs:
+            cfm_lags=fabric.get_lags(self.client,params=**kwargs)
+        else:
+            cfm_lags=fabric.get_lags(self.client)
         return (True, cfm_lags)
