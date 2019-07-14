@@ -18,20 +18,20 @@
 # __maintainer__ = "Rick Kauffman"
 # __email__ = "rick.a.kauffman@hpe.com"
 
-from pyhpecfm import client
-from pyhpecfm.client import CFMClient
-from st2common.runners.base_action import Action
 
-class HpecfmBaseAction(Action):
-    def __init__(self,config):
-        super(HpecfmBaseAction, self).__init__(config)
-        self.client = self._get_client()
+from pyhpecfm import fabric
+from lib.actions import HpecfmBaseAction
 
-    def _get_client(self):
-        ipaddress = self.config['ipaddress']
-        username = self.config['username']
-        password = self.config['password']
-
-        client = CFMClient(ipaddress, username, password)
-
-        return client
+class lagLookup(HpecfmBaseAction):
+    def run(self,count_only=None, mac_attachments=None,mac_learning=None,ports=None,port_type=None,tag=None,type=None,vlan_groups=None):
+        params={'count_only': count_only,
+                 'mac_attachemnts': mac_attachments,
+                 'mac_learning': mac_learning,
+                 'ports': ports,
+                 'port_type': port_type,
+                 'tag': tag,
+                 'type': type,
+                 'vlan_groups': vlan_groups
+                 }
+        cfm_lags=fabric.get_lags(self.client,params)
+        return (True, cfm_lags)
