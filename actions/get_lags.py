@@ -33,6 +33,5 @@ class lagLookup(HpecfmBaseAction):
                  'type': type,
                  'vlan_groups': vlan_groups
                  }
-
         cfm_lags=fabric.get_lags(self.client,params)
         return (True, cfm_lags)
