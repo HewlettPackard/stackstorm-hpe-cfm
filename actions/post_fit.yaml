@@ -6,7 +6,7 @@ runner_type: python-script
 entry_point: post_fit.py
 enabled: true
 parameters:
-  fab_uuid:
+  fabric_uuid:
     type: "string"
     description: "The UUID of the fabric"
     required: true
