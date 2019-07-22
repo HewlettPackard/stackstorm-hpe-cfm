@@ -26,7 +26,7 @@ from lib.actions import HpecfmBaseAction
 class FabricFit(HpecfmBaseAction):
     def run(self, fab_uuid=None, name=None, description=None):
         # Send fit request to the plexxi controller
-        result = fabric.perform_fit(self.client, fab_uuid, name, description)
+        result = fabric.perform_fit(self.client, fabric_uuid, name, description)
         if result.status_code == 200:
             return(True, result.status_code)
         return (False, result.status_code)

@@ -18,7 +18,6 @@
 # __maintainer__ = "Rick Kauffman"
 # __email__ = "rick.a.kauffman@hpe.com"
 
-from pyhpecfm import client
 from pyhpecfm.client import CFMClient
 from st2common.runners.base_action import Action
 
@@ -33,5 +32,6 @@ class HpecfmBaseAction(Action):
         password = self.config['password']
 
         client = CFMClient(ipaddress, username, password)
+        client.connect()
 
         return client
