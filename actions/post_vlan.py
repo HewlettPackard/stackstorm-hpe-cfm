@@ -23,10 +23,10 @@
 from pyhpecfm import fabric
 from lib.actions import HpecfmBaseAction
 
-class FabricFit(HpecfmBaseAction):
-    def run(self, fab_uuid=None, name=None, description=None):
+class AddVlans(HpecfmBaseAction):
+    def run(self, name=None, description=None, vlans=None):
         # Send fit request to the plexxi controller
-        result = fabric.perform_fit(self.client, fabric_uuid, name, description)
+        result = fabric.add_vlan_groups(self.client, name, description, vlans)
         if result.status_code == 200:
             return(True, result.status_code)
         return (False, result.status_code)
