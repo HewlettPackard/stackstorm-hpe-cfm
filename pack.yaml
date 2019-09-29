@@ -5,7 +5,7 @@ description: HPE Composable Fabric Integration Pack
 keywords:
   - Composable Fabric
   - Plexxi
-version: 0.1.2
+version: 0.2.1
 python_versions:
   - "2"
   - "3"
