@@ -37,6 +37,7 @@ class alarmLookup(HpecfmBaseAction):
                           'u_eventType': alarm['data']['event_type'],
                           'u_typex': alarm['record_type'],
                           'u_sev': alarm['severity'],
+                          'u_uuid': alarm['uuid'],
                           'u_desc': alarm['description']
                           }
                     alarm_data.append(out)

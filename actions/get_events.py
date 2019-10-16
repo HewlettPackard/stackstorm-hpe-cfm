@@ -38,6 +38,7 @@ class eventLookup(HpecfmBaseAction):
                           'u_eventType': event['data']['event_type'],
                           'u_typex': event['record_type'],
                           'u_sev': event['severity'],
+                          'u_uuid': event['uuid'],
                           'u_desc': event['description'],
                           'u_name' : event['data']['object_name'],
                           'u_typeo' : event['data']['object_type']
