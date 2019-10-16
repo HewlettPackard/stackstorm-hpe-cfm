@@ -10,3 +10,6 @@ Version : 0.2.0
 
 Version : 0:2.1
 - Added the post vlan action
+
+Version : 0.2.2
+- added the uuid to the alarm and events actions
