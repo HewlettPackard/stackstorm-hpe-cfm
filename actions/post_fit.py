@@ -18,7 +18,7 @@
 # __maintainer__ = "Rick Kauffman"
 # __email__ = "rick.a.kauffman@hpe.com"
 
-# A python script for adding vlans to the cfm controller
+# A python script for sending a fit to the cfm controller
 
 from pyhpecfm import fabric
 from lib.actions import HpecfmBaseAction
