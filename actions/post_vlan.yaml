@@ -1,0 +1,23 @@
+---
+name: post_vlan
+pack: hpecfm
+description: Add a vlan or group of vlans to the HPECFM controller
+runner_type: python-script
+entry_point: post_vlan.py
+enabled: true
+parameters:
+  name:
+    type: "string"
+    description: "The vlan group name"
+    required: true
+    position: 0
+  description:
+    type: "string"
+    description: "The vlan group description"
+    required: true
+    position: 1
+  vlans:
+    type: "string"
+    description: "The vlan set"
+    required: true
+    position: 2
